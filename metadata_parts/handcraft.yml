@@ -1,0 +1,98 @@
+---
+label: Forward Proxy
+description: Deploy apache forward proxy
+rank: 50
+
+form_types:
+  - name:
+    label: Port
+    description: port open of the proxy
+    property_inputs:
+      - reference: .properties.port
+        label: port open of the proxy
+  - name:
+    label: Security
+    description: Security Configuration
+    property_inputs:
+      - reference: .properties.username
+        label: username
+      - reference: .properties.password
+        label: password
+      - reference: .properties.allow_network_ranges
+        label: allow network ranges
+        description: Only network range here will be allowed to access the proxy
+
+property_blueprints:
+  - name: port
+    type: integer
+    configurable: true
+  - name: username
+    type: string
+    configurable: true
+  - name: password
+    type: string
+    configurable: true
+  - name: allow_network_ranges
+    type: ip_ranges
+    configurable: true
+
+job_types:
+  - name: httpd
+    resource_label: httpd
+    templates:
+    - name: apache
+      release: apache
+    resource_definitions:
+      - name: ram
+        type: integer
+        label: RAM
+        configurable: true
+        default: 1_024
+        constraints:
+          min: 1_024
+
+      - name: ephemeral_disk
+        type: integer
+        label: Ephemeral Disk
+        configurable: true
+        default: 2_048
+        constraints:
+          min: 1_024
+
+      - name: persistent_disk
+        type: integer
+        label: Persistent Disk
+        configurable: true
+        default: 1024
+        constraints:
+          min: 1024
+
+      - name: cpu
+        type: integer
+        label: CPU
+        configurable: true
+        default: 1
+        constraints:
+          min: 1
+          power_of_two: true
+    static_ip: 1
+    dynamic_ip: 0
+    max_in_flight: 1
+    instance_definitions:
+      - name: instances
+        type: integer
+        label: Instances
+        configurable: false
+        default: 1
+    property_blueprints:
+      - name: vm_credentials
+        type: salted_credentials
+        default:
+          identity: vcap
+
+    manifest: |
+      httpd:
+        port: (( .properties.port ))
+        username: (( .properties.username ))
+        password: (( .properties.password ))
+        whitelist: (( .properties.allow_network_ranges ))
