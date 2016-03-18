@@ -4,13 +4,13 @@ description: Deploy apache forward proxy
 rank: 50
 
 form_types:
-  - name:
+  - name: Port
     label: Port
     description: port open of the proxy
     property_inputs:
       - reference: .properties.port
         label: port open of the proxy
-  - name:
+  - name: Security
     label: Security
     description: Security Configuration
     property_inputs:
@@ -33,7 +33,7 @@ property_blueprints:
     type: string
     configurable: true
   - name: allow_network_ranges
-    type: ip_ranges
+    type: string_list
     configurable: true
 
 job_types:
@@ -92,7 +92,49 @@ job_types:
 
     manifest: |
       httpd:
-        port: (( .properties.port ))
-        username: (( .properties.username ))
-        password: (( .properties.password ))
-        whitelist: (( .properties.allow_network_ranges ))
+        port: (( .properties.port.value ))
+        username: (( .properties.username.value ))
+        password: (( .properties.password.value ))
+        whitelist: (( .properties.allow_network_ranges.parsed_strings ))
+  - name: compilation
+    label: Compilation
+    resource_label: Compilation
+    description: Compilation
+    static_ip: 0
+    dynamic_ip: 1
+    max_in_flight: 1
+    resource_definitions:
+      - name: ram
+        type: integer
+        label: RAM
+        configurable: true
+        default: 1024
+        constraints:
+          min: 1024
+      - name: ephemeral_disk
+        type: integer
+        label: Ephemeral Disk
+        configurable: true
+        default: 8192
+        constraints:
+          min: 4096
+      - name: persistent_disk
+        type: integer
+        label: Persistent Disk
+        configurable: false
+        default: 0
+      - name: cpu
+        type: integer
+        label: CPU
+        configurable: true
+        default: 1
+        constraints:
+          min: 1
+    instance_definitions:
+      - name: instances
+        type: integer
+        label: Instances
+        default: 1
+        configurable: false
+        constraints:
+          min: 1

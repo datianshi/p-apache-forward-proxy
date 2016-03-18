@@ -1,10 +1,10 @@
 ---
 name: forward-proxy
-product_version: 0.0.1
+product_version: 0.0.1$PRERELEASE_VERSION$
 metadata_version: '1.6'
 stemcell_criteria:
   os: ubuntu-trusty
-  version: '3191'
+  version: '3202'
   requires_cpi: false
 icon_image: |
   iVBORw0KGgoAAAANSUhEUgAAAUAAAADcCAMAAAA2nYgUAAAAGXRFWHRTb2Z0d2Fy
@@ -190,5 +190,8 @@ releases:
 - file: apache-1.tgz
   name: apache
   version: '1'
-#  md5: c245e86700c28f67685f2c5db18faab1
+  md5: 337ee42c2f16c60211c5bcee0769f5a6
 #  url: http://releng-artifacts.cf-app.com/cf-mysql-23.2.tgz
+provides_product_versions:
+- name: forward-proxy
+  version: 0.0.1
