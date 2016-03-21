@@ -21,9 +21,19 @@ This tile can be used to deploy a http proxy by Ops Manager
 
     Comma delimited network ranges that allowed in this proxy
 
+* Example of usage of this proxy
+
+```
+curl www.google.com --proxy http://admin:admin@[proxy_ip]:8080
+```    
+
 * How to build this tile
 
 ```
 gem install vara
 vara build-metadata .
 ```     
+
+* Todo
+
+Make this proxy to use another remote proxy
