@@ -1,6 +1,6 @@
 ---
 name: forward-proxy
-product_version: 0.0.1
+product_version: 0.0.1.alpha.2.059582f
 metadata_version: '1.6'
 stemcell_criteria:
   os: ubuntu-trusty

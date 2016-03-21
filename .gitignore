@@ -1,4 +1,4 @@
-releases/
+releases/apache*
 stemcells/
 compiled_packages/
 content_migrations/migrations.yml
