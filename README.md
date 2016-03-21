@@ -2,12 +2,12 @@
 ![Ops Manager](images/forward-proxy.png)
 
 
-** Usage
+* Usage
 This tile can be used to deploy a http proxy by Ops Manager
 
-** [Apache forward proxy bosh release](https://github.com/datianshi/apache-forward-proxy-boshrelease)
+* [Apache forward proxy bosh release](https://github.com/datianshi/apache-forward-proxy-boshrelease)
 
-** Configuration
+* Configuration
 
   * Configure the open port
 
@@ -21,7 +21,7 @@ This tile can be used to deploy a http proxy by Ops Manager
 
     Comma delimited network ranges that allowed in this proxy
 
-** How to build this tile
+* How to build this tile
 
 ```
 gem install vara
